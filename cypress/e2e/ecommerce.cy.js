@@ -1,18 +1,19 @@
 import products from "../fixtures/products.json"
 
-describe('My First Test', () => {
+describe('Demoblaze purchase', () => {
   
             
   console.log(products);
   it("Finish a purchase with X items", () => {
+    
+    let totalAmount = 0;
     //1-Step: Open the URL
     cy.visit('https://demoblaze.com/');
 
     //2-Step: Adding products to the cart
     products.forEach((item, k) => {
-      cy.get("a.hrefch").contains(item.name).click();
-      cy.get("a.btn").contains("Add to cart").click();
-      cy.get("a.nav-link").contains("Home").click();
+      cy.addCart(item.name);
+      totalAmount += item.price;
     });
 
     //3-Step: Visit the cart
@@ -20,21 +21,11 @@ describe('My First Test', () => {
     cy.get("button.btn-success").contains("Place Order").click();
 
     //4-Step: Fill the form
-    cy.get("#name").type("Luis");
-    cy.get("#card").type("3700 0000 0000 002");
-    cy.get("button.btn-primary").contains("Purchase").click();
+    cy.fillForm("Luis", "3700 0000 0000 002");
 
-  });
+    //5-Step: Assess the values    
+    cy.get("p.lead").invoke("text").should("contain", `Amount: ${totalAmount} USD`);
+    cy.get("button.confirm").contains("OK").click();    
 
-  /*  
-  cy.visit('https://demoblaze.com/')
-  cy.get("a.hrefch").contains("Nexus 6").click();
-  cy.get("a.btn").contains("Add to cart").click();
-  cy.on('window:alert', (t)=>{
-    //assertions
-    expect(t).to.contains('Product added');
-  })
-  cy.get("a.nav-link").contains("Home").click();
-  */
-  
+  });  
 })

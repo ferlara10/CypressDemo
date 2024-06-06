@@ -23,3 +23,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("addCart", (itemName) => {
+    cy.get("a.hrefch").contains(itemName).click();
+    cy.get("a.btn").contains("Add to cart").click();
+    cy.get("a.nav-link").contains("Home").click();
+});
+
+Cypress.Commands.add("fillForm", (customerName, creditCard) => {
+    cy.get("#name").type(customerName);
+    cy.get("#card").type(creditCard);
+    cy.get("button.btn-primary").contains("Purchase").click();
+});
