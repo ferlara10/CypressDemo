@@ -1,0 +1,19 @@
+* Ejercicio Automatizacion E2E
+
+1. Cypress fue utilizado para automatizar el portal https://demoblaze.com/
+2. Para localizar los elementos en el HTML se utilizo en su mayoria CSS Selector a traves de los atributos id y class
+3. La automatizacion es capaz de agregar al carrito de compras cualquier cantidad de productos, haciendo uso de Cypress fixtures, se alimenta el test de un archivo json ubicado en: .//fixtures/products.json
+4. Para tener un codigo mas legible se hace uso de Cypress Custom Commands ubicado en: ../support/commands.js
+5. Cypress maneja de forma automatica los pop-ups, de esta forma no fue necesario agregar ningun tipo de codigo cuando se agrega un producto al carrito. 
+6. Para evaluar el correcto funcionamiento del flujo de compra, se realiza un Assert sumando el costo de cada producto y comparandolo con el costo que indica la interfaz grafica.
+
+
+* Ejercicio APIS
+
+1. Para realizar pruebas a un API se hace uso de Cypress dentro del mismo proyecto.
+2. La URL base fue configurada en el archivo "cypress.config.js" para poder hacer uso de endpoints en los request.
+3. Para la creacion de un nuevo usuario fue necesario utilizar un numero random y concatenarlo al string "luisfer" con el objetivo de disponer de un nuevo nombre siempre que se ejecute.
+4. Para la creacion de un nuevo usuario el API contesta solamente con un status=200, sin ningun tipo de mensaje de confirmacion.
+5. El API contesta con una propiedad llamada "errorMessage" para el manejo de errores. Este valor es el que se extrae y se evalua para determinar si la peticion es correcta o no.
+6. Sin importar si la peticion cuenta con algun error, el API responde siempre con 200 OK
+7. Cuando se realiza un login exitoso (usuario y password correcto) el API contesta con un token, el cual solo se evalua que viaje en la respuesta.
